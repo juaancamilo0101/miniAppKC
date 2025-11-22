@@ -1,0 +1,20 @@
+R_DEF: Internal format may change without notice
+local
+drawable ic_notification
+id btnA
+id btnB
+id container
+id error
+id favs
+id ingredients
+id list
+id loading
+id save
+id steps
+id title
+layout activity_main
+layout fragment_favorites
+layout fragment_result
+layout fragment_selection
+string app_name
+style Theme.RecetasGemini

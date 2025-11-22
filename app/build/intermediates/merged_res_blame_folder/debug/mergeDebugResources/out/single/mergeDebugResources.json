@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "com.karla.recetas.app-debug-46:/layout_activity_main.xml.flat",
+        "source": "com.karla.recetas.app-main-48:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.karla.recetas.app-debug-46:/drawable_ic_notification.xml.flat",
+        "source": "com.karla.recetas.app-main-48:/drawable/ic_notification.xml"
+    },
+    {
+        "merged": "com.karla.recetas.app-debug-46:/layout_fragment_result.xml.flat",
+        "source": "com.karla.recetas.app-main-48:/layout/fragment_result.xml"
+    },
+    {
+        "merged": "com.karla.recetas.app-debug-46:/layout_fragment_favorites.xml.flat",
+        "source": "com.karla.recetas.app-main-48:/layout/fragment_favorites.xml"
+    },
+    {
+        "merged": "com.karla.recetas.app-debug-46:/layout_fragment_selection.xml.flat",
+        "source": "com.karla.recetas.app-main-48:/layout/fragment_selection.xml"
+    }
+]
