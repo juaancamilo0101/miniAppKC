@@ -1,0 +1,9 @@
+# Archivos de configuración local (donde suelen estar las keys)
+local.properties
+
+# Carpetas de compilación y caché
+.gradle/
+build/
+app/build/
+*.class
+*.apk

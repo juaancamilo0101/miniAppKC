@@ -34,10 +34,10 @@ android {
         versionCode 1
         versionName '1.0.0'
 
-        def geminiKey = localProps.getProperty('GEMINI_API_KEY', '')
+        // Obtiene la key de OpenAI desde local.properties
+        def openAiKey = localProps.getProperty('openAiKey', '')
 
-        // Uso de interpolación en lugar de concatenación
-        buildConfigField("String", "GEMINI_API_KEY", "\"${geminiKey}\"")
+        buildConfigField("String", "OPENAI_API_KEY", "\"${openAiKey}\"")
     }
 
     buildTypes {

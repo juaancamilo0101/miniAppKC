@@ -5,9 +5,10 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.karla.recetas.BuildConfig
 import com.karla.recetas.data.RecipeEntity
+import com.karla.recetas.repo.AIRepository
 import com.karla.recetas.repo.FavoriteRepository
-import com.karla.recetas.repo.GeminiRepository
 import kotlinx.coroutines.launch
 
 private const val DEFAULT_INGREDIENT_1 = "Arroz"
@@ -20,7 +21,11 @@ private const val ERROR_MSG_API = "Sin conexión o error con la API"
 class RecipeViewModel(application: Application) : AndroidViewModel(application) {
 
   private val favoriteRepository = FavoriteRepository(application)
-  private val geminiRepository = GeminiRepository()
+
+  val apiKey = BuildConfig.OPENAI_API_KEY
+
+
+  private val geminiRepository = AIRepository()
 
   private val _loading = MutableLiveData(false)
   val loading: LiveData<Boolean> = _loading
