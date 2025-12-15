@@ -10,8 +10,12 @@ import com.karla.recetas.repo.FavoriteRepository
 import com.karla.recetas.repo.GeminiRepository
 import kotlinx.coroutines.launch
 
+private const val DEFAULT_INGREDIENT_1 = "Arroz"
+private const val DEFAULT_INGREDIENT_2 = "Pollo"
+private const val ERROR_MSG_API = "Sin conexión o error con la API"
+
 /**
- * ViewModel to manage recipe generation and favorites.
+ * ViewModel para gestionar la generación de recetas y favoritos.
  */
 class RecipeViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -34,9 +38,9 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
   private var secondIngredient: String? = null
 
   /**
-   * Updates the selected ingredients.
-   * @param optionNumber 1 for the first ingredient, 2 for the second.
-   * @param value The name of the ingredient.
+   * Actualiza los ingredientes seleccionados.
+   * @param optionNumber 1 para el primer ingrediente, 2 para el segundo.
+   * @param value El nombre del ingrediente.
    */
   fun setChoice(optionNumber: Int, value: String) {
     if (optionNumber == 1) {
@@ -47,37 +51,42 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
   }
 
   /**
-   * Calls the repository to generate a recipe using Gemini.
+   * Llama al repositorio para generar una receta usando Gemini.
    */
   fun generateRecipe() {
     _loading.value = true
 
-    // We launch in viewModelScope. The Repository handles the IO switching.
     viewModelScope.launch {
-      // Default values if null, avoiding hardcoded + concatenation
-      val ingredient1 = firstIngredient ?: "Arroz"
-      val ingredient2 = secondIngredient ?: "Pollo"
+      // Validamos que no sean nulos ni vacios (usando isNullOrBlank de Kotlin que es similar a isBlank)
+      val ingredient1 = if (firstIngredient.isNullOrBlank()) DEFAULT_INGREDIENT_1 else firstIngredient!!
+      val ingredient2 = if (secondIngredient.isNullOrBlank()) DEFAULT_INGREDIENT_2 else secondIngredient!!
 
-      val result = geminiRepository.generate(ingredient1, ingredient2)
+      try {
+        val result = geminiRepository.generate(ingredient1, ingredient2)
 
-      if (result == null) {
-        _error.postValue("Sin conexión o error con la API")
-        _loading.postValue(false)
-      } else {
-        val entity = RecipeEntity(
-          title = result.title,
-          ingredients = result.ingredients,
-          steps = result.steps
-        )
-        _recipe.postValue(entity)
-        _error.postValue(null)
+        if (result == null) {
+          _error.postValue(ERROR_MSG_API)
+          _loading.postValue(false)
+        } else {
+          val entity = RecipeEntity(
+            title = result.title,
+            ingredients = result.ingredients,
+            steps = result.steps
+          )
+          _recipe.postValue(entity)
+          _error.postValue(null)
+          _loading.postValue(false)
+        }
+      } catch (e: Exception) {
+        // Capturamos cualquier error que venga del repositorio
+        _error.postValue(e.message)
         _loading.postValue(false)
       }
     }
   }
 
   /**
-   * Saves the current recipe to the local database.
+   * Guarda la receta actual en la base de datos local.
    */
   fun saveFavorite() {
     val currentRecipe = _recipe.value ?: return
@@ -87,7 +96,7 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
   }
 
   /**
-   * Loads all favorite recipes from the database.
+   * Carga todas las recetas favoritas de la base de datos.
    */
   fun loadFavorites() {
     viewModelScope.launch {
