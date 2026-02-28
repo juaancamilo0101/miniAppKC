@@ -32,8 +32,6 @@ class AIRepository {
     suspend fun generate(baseIngredient: String, protein: String): Recipe? {
         return withContext(Dispatchers.IO) {
             try {
-                // IMPORTANTE: Asegúrate de tener GROQ_API_KEY en tu build.gradle / local.properties
-                // O cambia esta línea para obtener la key de donde la tengas guardada.
                 val apiKey = BuildConfig.OPENAI_API_KEY
 
                 if (apiKey.isBlank()) {

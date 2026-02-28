@@ -5,9 +5,25 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:padding="24dp">
+  <ImageView
+      android:src="@mipmap/ic_launcher"
+      android:contentDescription="Logo"
+      android:layout_width="96dp"
+      android:layout_height="96dp"
+      android:layout_gravity="center"
+      android:layout_marginBottom="8dp"/>
+  <TextView
+      android:text="SaborSwipe"
+      android:textStyle="bold"
+      android:textSize="18sp"
+      android:letterSpacing="0.05"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:layout_marginBottom="16dp"/>
   <TextView
     android:id="@+id/title"
-    android:text="Pregunta 1"
+    android:text="Selecciona tu carbohidrato"
     android:textSize="20sp"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" />
@@ -16,11 +32,31 @@
     android:text="Arroz"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="16dp" />
+    android:layout_marginTop="16dp"
+    android:letterSpacing="0.02"
+    android:padding="12dp" />
   <Button
     android:id="@+id/btnB"
     android:text="Pasta"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="8dp" />
+    android:layout_marginTop="8dp"
+    android:letterSpacing="0.02"
+    android:padding="12dp"/>
+  <Button
+      android:id="@+id/btnC"
+      android:text="Quinoa"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      android:letterSpacing="0.02"
+      android:padding="12dp" />
+  <Button
+      android:id="@+id/btnD"
+      android:text="Patata"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      android:letterSpacing="0.02"
+      android:padding="12dp" />
 </LinearLayout>
